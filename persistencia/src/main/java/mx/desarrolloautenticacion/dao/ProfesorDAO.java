@@ -1,17 +1,17 @@
 package mx.desarrolloautenticacion.dao;
 
 import jakarta.persistence.EntityManager;
-import mx.desarrolloautenticacion.persistence.AbstractDAO;
 import mx.desarrolloautenticacion.entity.Alumno;
+import mx.desarrolloautenticacion.entity.Profesor;
+import mx.desarrolloautenticacion.persistence.AbstractDAO;
 
 import java.util.List;
 
-
-public class AlumnoDAO extends AbstractDAO<Alumno> {
+public class ProfesorDAO extends AbstractDAO<Profesor> {
     private final EntityManager entityManager;
 
-    public AlumnoDAO(EntityManager em) {
-        super(Alumno.class);
+    public ProfesorDAO(EntityManager em) {
+        super(Profesor.class);
         this.entityManager = em;
     }
 
@@ -20,9 +20,9 @@ public class AlumnoDAO extends AbstractDAO<Alumno> {
                 .createQuery("SELECT a FROM Alumno a", Alumno.class)
                 .getResultList();
     }
-
     @Override
     public EntityManager getEntityManager() {
         return entityManager;
     }
 }
+

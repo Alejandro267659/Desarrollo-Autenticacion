@@ -1,28 +1,29 @@
 package mx.desarrolloautenticacion.integration;
 
-import mx.desarrolloautenticacion.facade.FacadeAlumno;
-import mx.desarrolloautenticacion.facade.FacadeUsuario;
+import mx.desarrolloautenticacion.facade.FacadeProfesor;
+import mx.desarrolloautenticacion.facade.FacadeUnidad;
 
 public class ServiceFacadeLocator {
 
-    private static FacadeAlumno facadeAlumno;
-    private static FacadeUsuario facadeUsuario;
+    private static FacadeProfesor facadeProfesor;
+    private static FacadeUnidad facadeUnidad;
 
-    public static FacadeAlumno getInstanceFacadeAlumno() {
-        if (facadeAlumno == null) {
-            facadeAlumno = new FacadeAlumno();
-            return facadeAlumno;
+
+    public static FacadeProfesor getInstanceFacadeProfesor(){
+        if(facadeProfesor == null){
+            facadeProfesor = new FacadeProfesor();
+            return facadeProfesor;
         } else {
-            return facadeAlumno;
+            return facadeProfesor;
         }
     }
 
-    public static FacadeUsuario getInstanceFacadeUsuario() {
-        if (facadeUsuario == null) {
-            facadeUsuario = new FacadeUsuario();
-            return facadeUsuario;
+    public static FacadeUnidad getInstanceFacadeUnidad(){
+        if(facadeUnidad == null){
+            facadeUnidad = new FacadeUnidad();
+            return facadeUnidad;
         } else {
-            return facadeUsuario;
+            return facadeUnidad;
         }
     }
 }

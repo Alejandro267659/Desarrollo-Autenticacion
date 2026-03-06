@@ -1,17 +1,19 @@
 
-import mx.desarrolloautenticacion.dao.AlumnoDAO;
+import mx.desarrolloautenticacion.dao.ProfesorDAO;
+import mx.desarrolloautenticacion.entity.Profesor;
 import mx.desarrolloautenticacion.persistence.HibernateUtil;
-import mx.desarrolloautenticacion.entity.Alumno;
 
 public class testDAO {
 
     public static void main(String[] args) {
-        AlumnoDAO alumnoDAO = new AlumnoDAO(HibernateUtil.getEntityManager());
+        ProfesorDAO profesorDAO = new ProfesorDAO(HibernateUtil.getEntityManager());
 
 
 
-        for (Alumno alumno : alumnoDAO.findAll()) {
-            System.out.println(alumno.getNombre() + " " + alumno.getApellidos() + "|| id [" + alumno.getId()+ "]");
+        for (Profesor profesor   : profesorDAO.findAll()) {
+            System.out.println("Nombre: " + profesor.getNombreProfesor() + "\n" +
+                    "Apellido: " + profesor.getApellidopaternoProfesor() + " " + profesor.getApellidoMaternoProfesor() + "\n" +
+                    "RFC: " + profesor.getRfcProfesor());
         }
     }
 }
