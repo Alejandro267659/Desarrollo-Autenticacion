@@ -38,17 +38,21 @@ public class LoginBeanUI implements Serializable{
      public void login() throws IOException{
         String appURL = "/index.xhtml";
         // los atributos de usuario vienen del xhtml 
-        Usuario us= new Usuario();
-        us.setId(0);
-        us = loginHelper.Login(usuario.getCorreo(), usuario.getContrasena());
-          if(us != null && us.getId()!=null){
-            // asigno el usuario encontrado al usuario de esta clase para que 
-            // se muestre correctamente en la pagina de informacion
-            usuario=us;
-            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + appURL);
-        }else{
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario o contraseña incorrecta:", "Intente de nuevo"));
-        }
+        if (usuario.getCorreo().trim().isEmpty() || usuario.getContrasena().trim().isEmpty()){
+    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erorr:", "Todos los campos deben ser llenados"));
+    return;
+         }
+         try {
+             Usuario us = loginHelper.Login(usuario.getCorreo(), usuario.getContrasena());
+             if (us != null && us.getId() != null) {
+                 this.usuario = us;
+                 FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + appURL);
+             } else {
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error de autenticacion", "Usuario o contraseña incorrecto"));
+             }
+         }catch (Exception e){
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Error","No se pudo conectar al servidor"));
+         }
     }
 
     
@@ -61,16 +65,5 @@ public class LoginBeanUI implements Serializable{
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
-    
-    
-    
-    
-    
-    
-    
 
-    
-
-    
 }
