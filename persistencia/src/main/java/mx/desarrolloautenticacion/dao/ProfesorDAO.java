@@ -1,10 +1,8 @@
 package mx.desarrolloautenticacion.dao;
 
 import jakarta.persistence.EntityManager;
-import mx.desarrolloautenticacion.entity.Alumno;
 import mx.desarrolloautenticacion.entity.Profesor;
 import mx.desarrolloautenticacion.persistence.AbstractDAO;
-
 import java.util.List;
 
 public class ProfesorDAO extends AbstractDAO<Profesor> {
@@ -15,14 +13,22 @@ public class ProfesorDAO extends AbstractDAO<Profesor> {
         this.entityManager = em;
     }
 
-    public List<Alumno> obtenerTodos(){
+    public List<Profesor> obtenerTodosOrdenados() {
         return entityManager
-                .createQuery("SELECT a FROM Alumno a", Alumno.class)
+                .createQuery("SELECT p FROM Profesor p ORDER BY p.nombreProfesor ASC", Profesor.class)
                 .getResultList();
     }
+
     @Override
     public EntityManager getEntityManager() {
         return entityManager;
     }
-}
 
+    public void create(Profesor p) {
+        try {
+            entityManager.persist(p);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

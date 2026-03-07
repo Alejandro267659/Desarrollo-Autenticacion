@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Altas de Profesor</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .contenedor{
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 8px rgba(0,0,0,0.2);
+        }
+
+        h2{
+            text-align: center;
+        }
+
+        label{
+            display: block;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        input{
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: #eee;
+        }
+
+        .formato{
+            font-size: 12px;
+            color: gray;
+            margin-top: 5px;
+        }
+
+        .btn{
+            width: 150px;
+            padding: 10px;
+            margin: 20px auto;
+            display: block;
+            background-color: #2ecc71;
+            border: none;
+            color: white;
+            font-size: 14px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .asterisco{
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <h2>Altas de Profesor</h2>
+
+    <form>
+
+        <label>Nombre del profesor <span class="asterisco">*</span></label>
+        <input type="text" name="nombre" />
+
+        <label>Apellido materno del profesor <span class="asterisco">*</span></label>
+        <input type="text" name="apellidom" />
+
+        <label>Apellido paterno del profesor <span class="asterisco">*</span></label>
+        <input type="text" name="apellidop" />
+
+        <label>RFC <span class="asterisco">*</span></label>
+        <input type="text" name="rfc" />
+
+        <p class="formato">Formato: ABCDE123456</p>
+
+        <input type="submit" value="Registrar" class="btn"/>
+
+    </form>
+
+</div>
+
+</body>
+</html>

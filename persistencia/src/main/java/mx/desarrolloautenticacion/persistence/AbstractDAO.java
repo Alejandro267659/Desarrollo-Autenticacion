@@ -20,6 +20,9 @@ public abstract class AbstractDAO<T> {
 
     protected abstract EntityManager getEntityManager();
 
+
+
+
       /* ========================
        Operaciones CRUD básicas
        ======================== */
@@ -38,6 +41,10 @@ public abstract class AbstractDAO<T> {
     public void delete(T entity) {
         executeInsideTransaction(em -> em.remove(em.contains(entity) ? entity : em.merge(entity)));
     }
+
+
+
+
 
     // Find by ID
     public Optional<T> find(Object id) {
