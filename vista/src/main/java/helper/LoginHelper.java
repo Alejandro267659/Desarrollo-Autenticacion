@@ -18,10 +18,19 @@ public class LoginHelper implements Serializable {
      * Metodo para hacer login llamara a la instancia de usuarioFacade
      * @paramcorreo
      * @parampassword
-     * @return 
+     * @return
      */
-    public boolean validarLogin(String password, String nombre){
+    //El metodo Login ahora devuelve un Usuario en vez de Boolean
+    public Usuario Login(String correo, String contrasena) {
+
         Usuario usuario = new Usuario();
-        return usuario.getUsuario().equals(nombre) && usuario.getPassword().equals(password);
+        //Agregue unos datos de prueba para que funcione la comparacion
+        usuario.setId(1);
+        usuario.setCorreo("admin@uabc.mx");
+        usuario.setContrasena("1234");
+        if (usuario.getCorreo().equals(correo) && usuario.getContrasena().equals(contrasena)) {
+            return usuario;
+        }
+        return null;
     }
 }
