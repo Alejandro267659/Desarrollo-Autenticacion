@@ -82,28 +82,44 @@
 
     <div class="card">
       <h3>Consulta de Asignación</h3>
-      <h:form id="formConsulta">
+      <div class="card">
+        <h3>Consulta de Asignación</h3>
+        <h:form id="formConsulta">
 
-        <p:dataTable id="tablaAsignaciones" var="asig" value="#{gestionBean.asignaciones}"
-                     size="small" emptyMessage="No hay asignaciones registradas">
+          <div class="field" style="display: flex; gap: 5px;">
+            <p:inputText value="#{gestionBean.filtroBusqueda}"
+                         placeholder="Nombre de profesor o unidad..."
+                         style="flex-grow: 1;"/>
 
-          <p:column headerText="ID">
-            <h:outputText value="#{asig.id}"/>
-          </p:column>
+            <p:commandButton value="Consultar"
+                             action="#{gestionBean.ejecutarConsultaManual}"
+                             update="tablaAsignaciones"
+                             icon="pi pi-search"
+                             styleClass="btn-green"
+                             style="width: auto; padding: 0 15px;"/>
+          </div>
 
-          <p:column headerText="Profesor">
-            <h:outputText value="#{gestionBean.obtenerNombreProfesor(asig.idProfesor)}"/>
-          </p:column>
+          <p:dataTable id="tablaAsignaciones"
+                       var="asig"
+                       value="#{gestionBean.asignaciones}"
+                       size="small"
+                       emptyMessage="No se han encontrado registros para esa búsqueda.">
 
-          <p:column headerText="Unidad">
-            <h:outputText value="#{gestionBean.obtenerNombreUnidad(asig.idUnidad)}"/>
-          </p:column>
+            <p:column headerText="ID">
+              <h:outputText value="#{asig.id}"/>
+            </p:column>
 
-        </p:dataTable>
+            <p:column headerText="Profesor">
+              <h:outputText value="#{gestionBean.obtenerNombreProfesor(asig.idProfesor)}"/>
+            </p:column>
 
-        <p:commandButton value="Nueva Asignación" styleClass="btn-green" style="margin-top:20px;"/>
-        <p:commandButton value="Regresar al inicio" action="login?faces-redirect=true" styleClass="btn-secondary"/>
-      </h:form>
+            <p:column headerText="Unidad">
+              <h:outputText value="#{gestionBean.obtenerNombreUnidad(asig.idUnidad)}"/>
+            </p:column>
+
+          </p:dataTable>
+        </h:form>
+      </div>
     </div>
 
   </div>

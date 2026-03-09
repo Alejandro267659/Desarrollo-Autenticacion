@@ -19,8 +19,9 @@ public class GestionHelper implements Serializable {
 
     private String nombre, apellidoP, apellidoM, rfc;
     private List<Profesor> listaProfesores;
+    private String filtroBusqueda;
     private Profesor profesorSeleccionado;
-
+    private List<Profesor_Imparte> asignacionesFiltradas;
     private List<Unidad_Aprendizaje> listaUnidades;
     private String unidadNombre, claveMateria;
     private int hrsClase, hrsTaller, hrsLab;
@@ -37,26 +38,13 @@ public class GestionHelper implements Serializable {
     @PostConstruct
     public void init() {
         try {
-
             FacadeProfesor fp = new FacadeProfesor();
             this.listaProfesores = fp.listarProfesores();
-
             this.listaUnidades = new DelegateUnidad().listarUnidades();
-            if(this.listaUnidades == null) {
-                this.listaUnidades = new ArrayList<>();
-            }
 
-            this.asignaciones = new FacadeAsignacion().obtenerTodas();
-            if(this.asignaciones == null) {
-                this.asignaciones = new ArrayList<>();
-            }
+            this.asignaciones = new ArrayList<>();
 
         } catch (Exception e) {
-            System.out.println("ERROR EN INIT");
-            e.printStackTrace();
-            this.listaProfesores = new ArrayList<>();
-            this.listaUnidades = new ArrayList<>();
-            this.asignaciones = new ArrayList<>();
         }
     }
 
@@ -145,12 +133,31 @@ public class GestionHelper implements Serializable {
                 .orElse("ID: " + id);
     }
 
+
+    public void ejecutarConsultaManual() {
+        List<Profesor_Imparte> todas = new FacadeAsignacion().obtenerTodas();
+
+        if (this.filtroBusqueda == null || this.filtroBusqueda.trim().isEmpty()) {
+            this.asignaciones = todas;
+        } else {
+            String busqueda = this.filtroBusqueda.toLowerCase();
+            this.asignaciones = todas.stream()
+                    .filter(asig ->
+                            obtenerNombreProfesor(asig.getIdProfesor()).toLowerCase().contains(busqueda) ||
+                                    obtenerNombreUnidad(asig.getIdUnidad()).toLowerCase().contains(busqueda)
+                    ).toList();
+        }
+    }
+
+    public String getFiltroBusqueda() { return filtroBusqueda; }
+    public void setFiltroBusqueda(String filtroBusqueda) { this.filtroBusqueda = filtroBusqueda; }
+
     public List<Unidad_Aprendizaje> getListaUnidades() { return listaUnidades; }
     public void setListaUnidades(List<Unidad_Aprendizaje> listaUnidades) { this.listaUnidades = listaUnidades; }
     public Unidad_Aprendizaje getUnidadSeleccionada() { return unidadSeleccionada; }
     public void setUnidadSeleccionada(Unidad_Aprendizaje unidadSeleccionada) { this.unidadSeleccionada = unidadSeleccionada; }
-
-    // Corregido el Getter de asignaciones
+    public List<Profesor_Imparte> getAsignacionesFiltradas() { return asignacionesFiltradas; }
+    public void setAsignacionesFiltradas(List<Profesor_Imparte> asignacionesFiltradas) { this.asignacionesFiltradas = asignacionesFiltradas; }
     public List<Profesor_Imparte> getAsignaciones() { return asignaciones; }
     public void setAsignaciones(List<Profesor_Imparte> asignaciones) { this.asignaciones = asignaciones; }
 
