@@ -24,10 +24,11 @@ public class LoginServlet extends HttpServlet {
 
         if (helper.validarLogin(pass, user)) {
 
-            response.sendRedirect("Altas.xhtml");
+            response.sendRedirect("MenuPrincipal.xhtml");
         } else {
+            request.setAttribute("error", "Credenciales no válidas");
+            request.getRequestDispatcher("login.xhtml").forward(request, response);
 
-            response.sendRedirect("login.html?error=invalid");
         }
     }
 }

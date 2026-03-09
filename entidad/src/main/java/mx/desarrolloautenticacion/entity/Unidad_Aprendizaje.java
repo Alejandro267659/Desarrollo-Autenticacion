@@ -63,4 +63,8 @@ public class Unidad_Aprendizaje {
         this.horasLaboratorio = horasLaboratorio;
     }
 
+    public String toString(){
+        return nombreUnidad + " - " + idUnidades;
+    }
+
 }

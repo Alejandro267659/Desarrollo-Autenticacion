@@ -41,9 +41,12 @@ public class GestionHelper implements Serializable {
             this.listaUnidades = new ArrayList<>();
             this.asignaciones = new ArrayList<>();
         } catch (Exception e) {
+            System.out.println("ERROR ERROR ERROR");
+            e.printStackTrace();
             this.listaProfesores = new ArrayList<>();
             this.listaUnidades = new ArrayList<>();
             this.asignaciones = new ArrayList<>();
+
         }
     }
 

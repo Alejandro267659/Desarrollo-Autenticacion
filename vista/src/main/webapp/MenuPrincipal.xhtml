@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Menú Principal</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      margin-top: 100px;
+    }
+
+    .card {
+      width: 250px;
+      padding: 20px;
+      border-radius: 12px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .titulo {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .btn-green {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 25px;
+      background-color: #5cc087;
+      color: #1b1b1b;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .btn-green:hover {
+      background-color: #4caf75;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <div class="titulo">Profesores</div>
+  <form action="Altas.xhtml" method="get">
+    <input type="submit" value="Iniciar" class="btn-green"/>
+  </form>
+</div>
+
+
+<div class="card">
+  <div class="titulo">Unidades de Aprendizaje</div>
+  <form action="Menu.xhtml" method="get">
+    <input type="submit" value="Iniciar" class="btn-green"/>
+  </form>
+</div>
+</body>
+</html>
