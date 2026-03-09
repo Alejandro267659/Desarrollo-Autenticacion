@@ -25,6 +25,6 @@ public class AltaProfesorServlet extends HttpServlet {
         ProfesorHelper helper = new ProfesorHelper();
         helper.altaProfesor(nombre, apellidop, apellidom, rfc);
 
-        response.sendRedirect("profesorRegistrado.jsp");
+        response.sendRedirect("Menu.xhtml");
     }
 }
