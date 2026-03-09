@@ -13,7 +13,6 @@
     h3 { text-align: center; color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
     .field { margin-bottom: 15px; }
     .ui-inputfield { width: 100% !important; }
-    /* Botones Verdes */
     .btn-green {
       background-color: #27ae60 !important; border: none !important; color: white !important;
       width: 100%; margin-top: 10px; font-weight: bold;
@@ -35,8 +34,6 @@
           <p:inputText value="#{gestionBean.unidadNombre}"/>
         </div>
         <div class="field">
-          <p:outputLabel value="Clave de la materia"/>
-          <p:inputText value="#{gestionBean.claveMateria}"/>
         </div>
         <div class="field">
           <p:outputLabel value="Hrs Clase"/>
@@ -51,7 +48,7 @@
           <p:inputText value="#{gestionBean.hrsLab}"/>
         </div>
         <p:commandButton value="Registrar Materia" action="#{gestionBean.registrarMateria}"
-                         styleClass="btn-green" update="@form"/>
+                         styleClass="btn-green" update="@form :formAsignacion :formConsulta:tablaAsignaciones"/>
       </h:form>
     </div>
 
@@ -60,33 +57,50 @@
       <h:form id="formAsignacion">
         <div class="field">
           <p:outputLabel value="Seleccione un profesor *"/>
-          <p:selectOneMenu value="#{gestionBean.profesorSeleccionado}" style="width:100%">
+          <p:selectOneMenu value="#{gestionBean.idProfesorSeleccionado}" style="width:100%">
             <f:selectItem itemLabel="Seleccionar..." itemValue=""/>
-            <f:selectItems value="#{gestionBean.listaProfesores}"/>
+            <f:selectItems value="#{gestionBean.listaProfesores}" var="prof"
+                           itemLabel="#{prof.nombreProfesor} #{prof.apellidopaternoProfesor}"
+                           itemValue="#{prof.id}"/>
           </p:selectOneMenu>
         </div>
+
         <div class="field">
           <p:outputLabel value="Seleccione unidad de aprendizaje"/>
-          <p:selectOneMenu value="#{gestionBean.unidadSeleccionada}" style="width:100%">
+          <p:selectOneMenu value="#{gestionBean.idUnidadSeleccionada}" style="width:100%">
             <f:selectItem itemLabel="Seleccionar..." itemValue=""/>
-            <f:selectItems value="#{gestionBean.listaUnidades}"/>
+            <f:selectItems value="#{gestionBean.listaUnidades}" var="unidad"
+                           itemLabel="#{unidad.nombreUnidad}"
+                           itemValue="#{unidad.idUnidades}"/>
           </p:selectOneMenu>
         </div>
-        <p:commandButton value="Finalizar Registro" action="#{gestionBean.asignarMateria}"
-                         styleClass="btn-green" update="@form"/>
-        <p:commandButton value="Cancelar" styleClass="btn-secondary"/>
+
+        <p:commandButton value="Finalizar Registro" action="#{gestionBean.registrarAsignacion}"
+                         styleClass="btn-green" update="@form :formConsulta:tablaAsignaciones"/>
       </h:form>
     </div>
 
     <div class="card">
       <h3>Consulta de Asignación</h3>
       <h:form id="formConsulta">
-        <p:inputText placeholder="Buscar por profesor o unidad..." style="margin-bottom: 10px;"/>
-        <p:dataTable var="asig" value="#{gestionBean.asignaciones}" size="small">
-          <p:column headerText="ID"> <h:outputText value="#{asig.id}"/> </p:column>
-          <p:column headerText="Profesor"> <h:outputText value="#{asig.profesor}"/> </p:column>
-          <p:column headerText="Unidad"> <h:outputText value="#{asig.unidad}"/> </p:column>
+
+        <p:dataTable id="tablaAsignaciones" var="asig" value="#{gestionBean.asignaciones}"
+                     size="small" emptyMessage="No hay asignaciones registradas">
+
+          <p:column headerText="ID">
+            <h:outputText value="#{asig.id}"/>
+          </p:column>
+
+          <p:column headerText="Profesor">
+            <h:outputText value="#{gestionBean.obtenerNombreProfesor(asig.idProfesor)}"/>
+          </p:column>
+
+          <p:column headerText="Unidad">
+            <h:outputText value="#{gestionBean.obtenerNombreUnidad(asig.idUnidad)}"/>
+          </p:column>
+
         </p:dataTable>
+
         <p:commandButton value="Nueva Asignación" styleClass="btn-green" style="margin-top:20px;"/>
         <p:commandButton value="Regresar al inicio" action="login?faces-redirect=true" styleClass="btn-secondary"/>
       </h:form>

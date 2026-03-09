@@ -31,6 +31,10 @@ public class Profesor_Imparte {
         return idUnidad;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public void setIdUnidad(Integer idUnidad) {
         this.idUnidad = idUnidad;
     }

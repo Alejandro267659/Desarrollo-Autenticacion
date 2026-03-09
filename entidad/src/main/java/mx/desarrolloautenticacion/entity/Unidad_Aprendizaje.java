@@ -67,4 +67,12 @@ public class Unidad_Aprendizaje {
         return nombreUnidad + " - " + idUnidades;
     }
 
+    public Integer getIdUnidades() {
+        return idUnidades;
+    }
+
+    public void setIdUnidades(Integer idUnidades) {
+        this.idUnidades = idUnidades;
+    }
+
 }

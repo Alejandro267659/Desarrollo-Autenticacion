@@ -19,7 +19,6 @@ public class FacadeProfesor {
 
 
     public List<Profesor> listarProfesores() {
-        // Usamos el ServiceLocator para obtener el DAO y llamar al método que ya tienes
         return ServiceLocator.getInstanceProfesorDAO().obtenerTodosOrdenados();
     }
 
