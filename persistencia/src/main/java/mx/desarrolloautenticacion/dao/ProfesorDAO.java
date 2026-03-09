@@ -24,5 +24,5 @@ public class ProfesorDAO extends AbstractDAO<Profesor> {
                 .getResultList();
     }
 
-    // ¡Bórralo todo lo demás! Adiós a los create()
+
 }

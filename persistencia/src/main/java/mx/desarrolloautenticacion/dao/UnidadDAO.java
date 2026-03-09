@@ -24,5 +24,4 @@ public class UnidadDAO extends AbstractDAO<Unidad_Aprendizaje> {
                 .getResultList();
     }
 
-    // ¡Bórralo todo lo demás! Adiós a los create()
 }
