@@ -1,84 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
-<head>
-    <meta charset="UTF-8" />
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="jakarta.faces.core">
+<h:head>
     <title>Altas de Profesor</title>
     <style>
-        body{
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f2f2f2;
-        }
-        .contenedor{
-            width: 400px;
-            margin: 50px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 8px rgba(0,0,0,0.2);
-        }
+        body{ font-family: Arial, Helvetica, sans-serif; background-color: #f2f2f2; }
+        .contenedor{ width: 400px; margin: 50px auto; background: white; padding: 25px; border-radius: 5px; box-shadow: 0px 0px 8px rgba(0,0,0,0.2); }
         h2{ text-align: center; }
-        label{
-            display: block;
-            margin-top: 15px;
-            font-size: 14px;
+        label{ display: block; margin-top: 15px; font-size: 14px; }
+        .ui-inputfield { width: 100% !important; padding: 10px; margin-top: 5px; box-sizing: border-box; }
+        .btn-green {
+            width: 150px; padding: 10px; margin: 20px auto; display: block;
+            background-color: #2ecc71 !important; border: none !important; color: white !important;
+            font-size: 14px; border-radius: 3px; cursor: pointer;
         }
-        input{
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            background-color: #eee;
-            box-sizing: border-box;
-        }
-        .formato{
-            font-size: 12px;
-            color: gray;
-            margin-top: 5px;
-        }
-        .btn{
-            width: 150px;
-            padding: 10px;
-            margin: 20px auto;
-            display: block;
-            background-color: #2ecc71;
-            border: none;
-            color: white;
-            font-size: 14px;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        .btn:hover{ background-color: #27ae60; }
         .asterisco{ color: red; }
     </style>
-</head>
-<body>
+</h:head>
+<h:body>
 
-<div class="contenedor">
-    <h2>Altas de Profesor</h2>
+    <div class="contenedor">
+        <h2>Altas de Profesor</h2>
 
-    <form action="Menu.xhtml" method="post">
+        <h:form id="formAltas">
+            <p:messages id="msgs" showDetail="true" closable="true" />
 
-        <label for="nombre">Nombre del profesor <span class="asterisco">*</span></label>
-        <input type="text" id="nombre" name="nombre" required="required" />
+            <label>Nombre del profesor <span class="asterisco">*</span></label>
+            <p:inputText id="nombre" value="#{gestionBean.nombre}" required="true"
+                         requiredMessage="El nombre es obligatorio"/>
 
-        <label for="apellidop">Apellido paterno del profesor <span class="asterisco">*</span></label>
-        <input type="text" id="apellidop" name="apellidop" required="required" />
+            <label>Apellido paterno <span class="asterisco">*</span></label>
+            <p:inputText id="apellidop" value="#{gestionBean.apellidoP}" required="true" />
 
-        <label for="apellidom">Apellido materno del profesor <span class="asterisco">*</span></label>
-        <input type="text" id="apellidom" name="apellidom" required="required" />
+            <label>Apellido materno <span class="asterisco">*</span></label>
+            <p:inputText id="apellidom" value="#{gestionBean.apellidoM}" required="true" />
 
-        <label for="rfc">RFC <span class="asterisco">*</span></label>
-        <input type="text" id="rfc" name="rfc"
-               pattern="[A-Z]{4,5}[0-9]{6}"
-               title="El formato debe ser como ABCDE123456"
-               required="required" />
+            <label>RFC <span class="asterisco">*</span></label>
+            <p:inputText id="rfc" value="#{gestionBean.rfc}" required="true">
+                <f:validateRegex pattern="[A-Z]{4,5}[0-9]{6}" />
+            </p:inputText>
+            <p style="font-size: 12px; color: gray;">Formato: ABCDE123456</p>
 
-        <p class="formato">Formato: ABCDE123456</p>
+            <p:commandButton value="Registrar"
+                             action="#{gestionBean.registrarProfesor}"
+                             update="formAltas"
+                             styleClass="btn-green" />
 
-        <input type="submit" value="Registrar" class="btn"/>
-    </form>
-</div>
 
-</body>
+            <p:commandButton value="Ir al Menú" action="Menu?faces-redirect=true"
+                             immediate="true" style="width:100%; background: #95a5a6; border:none; color:white;"/>
+        </h:form>
+    </div>
+
+</h:body>
 </html>
