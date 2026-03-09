@@ -2,10 +2,12 @@ package helper;
 
 import jakarta.inject.Named;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.annotation.PostConstruct; // Importante
+import jakarta.annotation.PostConstruct;
 import mx.desarrolloautenticacion.dao.ProfesorDAO;
 import mx.desarrolloautenticacion.entity.Profesor;
 import mx.desarrolloautenticacion.facade.FacadeProfesor;
+import mx.desarrolloautenticacion.entity.Unidad_Aprendizaje;
+import mx.desarrolloautenticacion.delegate.DelegateUnidad;
 import java.io.Serializable;
 import java.util.List; // Importante
 import java.util.ArrayList;
@@ -14,19 +16,19 @@ import java.util.ArrayList;
 @RequestScoped
 public class GestionHelper implements Serializable {
 
-    // --- Variables Profesor ---
+
     private String nombre, apellidoP, apellidoM, rfc;
     private List<Profesor> listaProfesores;
     private Profesor profesorSeleccionado;
+    private List<Unidad_Aprendizaje> listaUnidades;
 
-    // --- Variables Unidad de Aprendizaje ---
+
     private String unidadNombre, claveMateria;
     private int hrsClase, hrsTaller, hrsLab;
-    private List<Object> listaUnidades;
-    private Object unidadSeleccionada;
+    private Unidad_Aprendizaje unidadSeleccionada;
 
-    // --- Variables de Asignación (LO QUE TE FALTA AHORA) ---
-    private List<Object> asignaciones; // Para el p:dataTable
+
+    private List<Object> asignaciones;
 
     public GestionHelper() {
     }
@@ -37,11 +39,16 @@ public class GestionHelper implements Serializable {
             FacadeProfesor fp = new FacadeProfesor();
             this.listaProfesores = fp.listarProfesores();
 
-            // Inicializamos como listas vacías para que el DataTable no truene
-            this.listaUnidades = new ArrayList<>();
+
+            this.listaUnidades = new DelegateUnidad().listarUnidades();
+
+            if(this.listaUnidades == null) {
+                this.listaUnidades = new ArrayList<>();
+            }
+
             this.asignaciones = new ArrayList<>();
         } catch (Exception e) {
-            System.out.println("ERROR ERROR ERROR");
+            System.out.println("ERROR EN INIT");
             e.printStackTrace();
             this.listaProfesores = new ArrayList<>();
             this.listaUnidades = new ArrayList<>();
@@ -70,22 +77,46 @@ public class GestionHelper implements Serializable {
     }
 
 
+    public void registrarMateria() {
+        try {
+            Unidad_Aprendizaje u = new Unidad_Aprendizaje();
+            u.setNombreUnidad(this.unidadNombre);
+
+            u.setHorasClase(this.hrsClase);
+            u.setHorasTaller(this.hrsTaller);
+            u.setHorasLaboratorio(this.hrsLab);
+
+            DelegateUnidad du = new DelegateUnidad();
+            du.saveUnidad(u);
+
+            this.listaUnidades = du.listarUnidades();
+
+            limpiarCamposUnidad();
+            System.out.println("Unidad guardada y lista actualizada con: " + listaUnidades.size() + " elementos.");
+        } catch (Exception e) {
+            System.out.println("Error fatal al guardar: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void limpiarCamposUnidad() {
+        this.unidadNombre = "";
+        this.hrsClase = 0;
+        this.hrsTaller = 0;
+        this.hrsLab = 0;
+    }
+
+
+    public List<Unidad_Aprendizaje> getListaUnidades() { return listaUnidades; }
+    public void setListaUnidades(List<Unidad_Aprendizaje> listaUnidades) { this.listaUnidades = listaUnidades; }
+
+    public Unidad_Aprendizaje getUnidadSeleccionada() { return unidadSeleccionada; }
+    public void setUnidadSeleccionada(Unidad_Aprendizaje unidadSeleccionada) { this.unidadSeleccionada = unidadSeleccionada; }
 
     public List<Object> getAsignaciones() { return asignaciones; }
     public void setAsignaciones(List<Object> asignaciones) { this.asignaciones = asignaciones; }
-
     public List<Profesor> getListaProfesores() { return listaProfesores; }
     public void setListaProfesores(List<Profesor> listaProfesores) { this.listaProfesores = listaProfesores; }
-
-    public List<Object> getListaUnidades() { return listaUnidades; }
-    public void setListaUnidades(List<Object> listaUnidades) { this.listaUnidades = listaUnidades; }
-
-    public Profesor getProfesorSeleccionado() { return profesorSeleccionado; }
-    public void setProfesorSeleccionado(Profesor profesorSeleccionado) { this.profesorSeleccionado = profesorSeleccionado; }
-
-    public Object getUnidadSeleccionada() { return unidadSeleccionada; }
-    public void setUnidadSeleccionada(Object unidadSeleccionada) { this.unidadSeleccionada = unidadSeleccionada; }
-
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public String getApellidoP() { return apellidoP; }
@@ -104,4 +135,10 @@ public class GestionHelper implements Serializable {
     public void setHrsTaller(int hrsTaller) { this.hrsTaller = hrsTaller; }
     public int getHrsLab() { return hrsLab; }
     public void setHrsLab(int hrsLab) { this.hrsLab = hrsLab; }
+    public Profesor getProfesorSeleccionado() {
+        return profesorSeleccionado;
+    }
+    public void setProfesorSeleccionado(Profesor profesorSeleccionado) {
+        this.profesorSeleccionado = profesorSeleccionado;
+    }
 }
