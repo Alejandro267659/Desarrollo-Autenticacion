@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
 <head>
+    <meta charset="UTF-8" />
     <title>Altas de Profesor</title>
     <style>
         body{
             font-family: Arial, Helvetica, sans-serif;
             background-color: #f2f2f2;
         }
-
         .contenedor{
             width: 400px;
             margin: 50px auto;
@@ -16,17 +16,12 @@
             border-radius: 5px;
             box-shadow: 0px 0px 8px rgba(0,0,0,0.2);
         }
-
-        h2{
-            text-align: center;
-        }
-
+        h2{ text-align: center; }
         label{
             display: block;
             margin-top: 15px;
             font-size: 14px;
         }
-
         input{
             width: 100%;
             padding: 10px;
@@ -34,14 +29,13 @@
             border: 1px solid #ccc;
             border-radius: 3px;
             background-color: #eee;
+            box-sizing: border-box; /* Evita que el input se salga del contenedor */
         }
-
         .formato{
             font-size: 12px;
             color: gray;
             margin-top: 5px;
         }
-
         .btn{
             width: 150px;
             padding: 10px;
@@ -54,39 +48,36 @@
             border-radius: 3px;
             cursor: pointer;
         }
-
-        .asterisco{
-            color: red;
-        }
+        .btn:hover{ background-color: #27ae60; }
+        .asterisco{ color: red; }
     </style>
 </head>
-
 <body>
 
 <div class="contenedor">
-
     <h2>Altas de Profesor</h2>
 
-    <form>
+    <form action="registrarProfesor" method="post">
 
-        <label>Nombre del profesor <span class="asterisco">*</span></label>
-        <input type="text" name="nombre" />
+        <label for="nombre">Nombre del profesor <span class="asterisco">*</span></label>
+        <input type="text" id="nombre" name="nombre" required="required" />
 
-        <label>Apellido materno del profesor <span class="asterisco">*</span></label>
-        <input type="text" name="apellidom" />
+        <label for="apellidop">Apellido paterno del profesor <span class="asterisco">*</span></label>
+        <input type="text" id="apellidop" name="apellidop" required="required" />
 
-        <label>Apellido paterno del profesor <span class="asterisco">*</span></label>
-        <input type="text" name="apellidop" />
+        <label for="apellidom">Apellido materno del profesor <span class="asterisco">*</span></label>
+        <input type="text" id="apellidom" name="apellidom" required="required" />
 
-        <label>RFC <span class="asterisco">*</span></label>
-        <input type="text" name="rfc" />
+        <label for="rfc">RFC <span class="asterisco">*</span></label>
+        <input type="text" id="rfc" name="rfc"
+               pattern="[A-Z]{4,5}[0-9]{6}"
+               title="El formato debe ser como ABCDE123456"
+               required="required" />
 
         <p class="formato">Formato: ABCDE123456</p>
 
         <input type="submit" value="Registrar" class="btn"/>
-
     </form>
-
 </div>
 
 </body>
