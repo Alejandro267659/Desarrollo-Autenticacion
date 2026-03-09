@@ -11,10 +11,10 @@ public class UnidadService {
     public UnidadService(EntityManager em) {
         this.unidadDAO = new UnidadDAO(em);
     }
+
     public boolean validarHoras(int c, int t, int l) {
         return (c >= 0 && t >= 0 && l >= 0) && (c + t + l) > 0;
     }
-
 
     public void registrarUnidad(Unidad_Aprendizaje u) {
 
@@ -31,6 +31,8 @@ public class UnidadService {
         }
 
         System.out.println("Validaciones aprobadas. Registrando unidad: " + u.getNombreUnidad());
-        unidadDAO.create(u);
+
+        // ¡AQUÍ ESTÁ LA MAGIA! Cambiamos .create() por .save()
+        unidadDAO.save(u);
     }
 }

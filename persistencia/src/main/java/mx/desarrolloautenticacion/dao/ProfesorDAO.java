@@ -13,22 +13,16 @@ public class ProfesorDAO extends AbstractDAO<Profesor> {
         this.entityManager = em;
     }
 
+    @Override
+    protected EntityManager getEntityManager() {
+        return entityManager;
+    }
+
     public List<Profesor> obtenerTodosOrdenados() {
         return entityManager
                 .createQuery("SELECT p FROM Profesor p ORDER BY p.nombreProfesor ASC", Profesor.class)
                 .getResultList();
     }
 
-    @Override
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
-
-    public void create(Profesor p) {
-        try {
-            entityManager.persist(p);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    // ¡Bórralo todo lo demás! Adiós a los create()
 }

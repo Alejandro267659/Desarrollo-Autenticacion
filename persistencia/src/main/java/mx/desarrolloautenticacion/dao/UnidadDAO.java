@@ -13,22 +13,16 @@ public class UnidadDAO extends AbstractDAO<Unidad_Aprendizaje> {
         this.entityManager = em;
     }
 
+    @Override
+    protected EntityManager getEntityManager() {
+        return entityManager;
+    }
+
     public List<Unidad_Aprendizaje> obtenerTodas(){
         return entityManager
                 .createQuery("SELECT u FROM Unidad_Aprendizaje u", Unidad_Aprendizaje.class)
                 .getResultList();
     }
 
-    public void create(Unidad_Aprendizaje unidad) {
-        try {
-            entityManager.persist(unidad);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
+    // ¡Bórralo todo lo demás! Adiós a los create()
 }

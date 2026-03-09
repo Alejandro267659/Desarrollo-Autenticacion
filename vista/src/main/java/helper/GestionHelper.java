@@ -23,27 +23,36 @@ public class GestionHelper implements Serializable {
         // Constructor vacío, sin crear otra instancia de sí mismo
     }
 
-    public boolean registrarProfesor() {
-        Profesor p = new Profesor();
-        p.setNombreProfesor(this.nombre);
-        p.setApellidopaternoProfesor(this.apellidoP);
-        p.setApellidoMaternoProfesor(this.apellidoM);
-        p.setRfcProfesor(this.rfc);
+    public String registrarProfesor() {
+        // RADAR 1: Si esto no se imprime en consola, ¡el problema es tu formulario HTML!
+        System.out.println("1. JSF sí me dejó entrar al método. Datos recibidos:");
+        System.out.println("Nombre: " + this.nombre + ", RFC: " + this.rfc);
 
-        // Aquí deberías llamar a tu capa de negocio/persistencia para guardar el profesor
-        // Ejemplo: profesorService.guardar(p);
-        FacadeProfesor fp = new FacadeProfesor();
-        fp.guardarProfesor(p);
+        try {
+            Profesor p = new Profesor();
+            p.setNombreProfesor(this.nombre);
+            p.setApellidopaternoProfesor(this.apellidoP);
+            p.setApellidoMaternoProfesor(this.apellidoM);
+            p.setRfcProfesor(this.rfc);
 
-        System.out.println("¡Profesor guardado con éxito!");
+            FacadeProfesor fp = new FacadeProfesor();
+            fp.guardarProfesor(p);
 
-        // Limpiar campos después de guardar
-        this.nombre = "";
-        this.apellidoP = "";
-        this.apellidoM = "";
-        this.rfc = "";
+            // RADAR 2: Si llega aquí, Workbench SÍ lo aceptó
+            System.out.println("2. ¡Guardado exitoso en la Base de Datos!");
 
-        return true;
+            // Limpiamos
+            this.nombre = ""; this.apellidoP = ""; this.apellidoM = ""; this.rfc = "";
+
+            return "Menu?faces-redirect=true";
+
+        } catch (Exception e) {
+            // RADAR 3: Si Workbench lo patea, nos dirá exactamente por qué
+            System.out.println("========== ERROR MASIVO AL GUARDAR EN WORKBENCH ==========");
+            e.printStackTrace(); // Esto va a imprimir la verdadera razón en rojo
+            System.out.println("==========================================================");
+            return null;
+        }
     }
 
     // --- Getters y Setters ---

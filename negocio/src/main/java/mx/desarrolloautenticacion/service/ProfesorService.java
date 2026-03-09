@@ -32,7 +32,7 @@ public class ProfesorService {
         }
 
         System.out.println("Usuario validado. Registrando profesor...");
-        profesorDAO.create(p);
+        profesorDAO.save(p);
     }
 
 
