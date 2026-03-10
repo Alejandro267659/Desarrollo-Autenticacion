@@ -39,4 +39,6 @@ public class Profesor_Imparte {
         this.idUnidad = idUnidad;
     }
 
+
+
 }

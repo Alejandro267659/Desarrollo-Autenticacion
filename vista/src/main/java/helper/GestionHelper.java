@@ -1,5 +1,7 @@
 package helper;
 
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.annotation.PostConstruct;
@@ -92,6 +94,17 @@ public class GestionHelper implements Serializable {
 
     public void registrarMateria() {
         try {
+            if (unidadNombre == null || unidadNombre.trim().isEmpty()) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "El nombre de la unidad es obligatorio"));
+                return;
+            }
+            if (hrsClase < 1 || hrsClase > 4 || hrsTaller < 1 || hrsTaller > 4 || hrsLab < 1 || hrsLab > 4) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Las horas deben estar entre 1 y 4"));
+                return;
+            }
+
             Unidad_Aprendizaje u = new Unidad_Aprendizaje();
             u.setNombreUnidad(this.unidadNombre);
             u.setHorasClase(this.hrsClase);
@@ -131,6 +144,33 @@ public class GestionHelper implements Serializable {
                 .map(u -> u.getNombreUnidad())
                 .findFirst()
                 .orElse("ID: " + id);
+    }
+
+    public Integer obtenerHorasClase(Integer idUnidad) {
+        if (idUnidad == null || listaUnidades == null) return null;
+        return listaUnidades.stream()
+                .filter(u -> u.getIdUnidades().equals(idUnidad))
+                .map(Unidad_Aprendizaje::getHorasClase)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Integer obtenerHorasTaller(Integer idUnidad) {
+        if (idUnidad == null || listaUnidades == null) return null;
+        return listaUnidades.stream()
+                .filter(u -> u.getIdUnidades().equals(idUnidad))
+                .map(Unidad_Aprendizaje::getHorasTaller)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Integer obtenerHorasLaboratorio(Integer idUnidad) {
+        if (idUnidad == null || listaUnidades == null) return null;
+        return listaUnidades.stream()
+                .filter(u -> u.getIdUnidades().equals(idUnidad))
+                .map(Unidad_Aprendizaje::getHorasLaboratorio)
+                .findFirst()
+                .orElse(null);
     }
 
 

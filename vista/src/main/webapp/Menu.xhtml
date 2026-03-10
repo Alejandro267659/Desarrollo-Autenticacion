@@ -30,28 +30,53 @@
       <h3>Altas de Unidades</h3>
       <h:form id="formAltas">
         <div class="field">
-          <p:outputLabel value="Nombre de la unidad"/>
-          <p:inputText value="#{gestionBean.unidadNombre}"/>
+          <p:outputLabel for="unidadNombre" value="Nombre de la unidad"/>
+          <p:inputText id="unidadNombre" value="#{gestionBean.unidadNombre}"
+                       required="true"
+                       validatorMessage="El nombre de la unidad es obligatorio"
+                       styleClass="ui-inputfield"/>
+          <p:message for="unidadNombre" style="color:red"/>
         </div>
+
         <div class="field">
+          <p:outputLabel for="hrsClase" value="Hrs Clase"/>
+          <p:inputText id="hrsClase" value="#{gestionBean.hrsClase}"
+                       required="true"
+                       validatorMessage="Las horas de clase deben ser entre 1 y 4"
+                       styleClass="ui-inputfield">
+            <f:validateLongRange minimum="1" maximum="4"/>
+          </p:inputText>
+          <p:message for="hrsClase" style="color:red"/>
         </div>
+
         <div class="field">
-          <p:outputLabel value="Hrs Clase"/>
-          <p:inputText value="#{gestionBean.hrsClase}"/>
+          <p:outputLabel for="hrsTaller" value="Hrs Taller"/>
+          <p:inputText id="hrsTaller" value="#{gestionBean.hrsTaller}"
+                       required="true"
+                       validatorMessage="Las horas de taller deben ser entre 1 y 4"
+                       styleClass="ui-inputfield">
+            <f:validateLongRange minimum="1" maximum="4"/>
+          </p:inputText>
+          <p:message for="hrsTaller" style="color:red"/>
         </div>
+
         <div class="field">
-          <p:outputLabel value="Hrs Taller"/>
-          <p:inputText value="#{gestionBean.hrsTaller}"/>
+          <p:outputLabel for="hrsLab" value="Hrs Laboratorio"/>
+          <p:inputText id="hrsLab" value="#{gestionBean.hrsLab}"
+                       required="true"
+                       validatorMessage="Las horas de laboratorio deben ser entre 1 y 4"
+                       styleClass="ui-inputfield">
+            <f:validateLongRange minimum="1" maximum="4"/>
+          </p:inputText>
+          <p:message for="hrsLab" style="color:red"/>
         </div>
-        <div class="field">
-          <p:outputLabel value="Hrs Laboratorio"/>
-          <p:inputText value="#{gestionBean.hrsLab}"/>
-        </div>
-        <p:commandButton value="Registrar Materia" action="#{gestionBean.registrarMateria}"
-                         styleClass="btn-green" update="@form :formAsignacion :formConsulta:tablaAsignaciones"/>
+
+        <p:commandButton value="Registrar Materia"
+                         action="#{gestionBean.registrarMateria}"
+                         styleClass="btn-green"
+                         update="@form :formAsignacion :formConsulta:tablaAsignaciones"/>
       </h:form>
     </div>
-
     <div class="card">
       <h3>Asignación de Materia</h3>
       <h:form id="formAsignacion">
@@ -115,6 +140,18 @@
 
             <p:column headerText="Unidad">
               <h:outputText value="#{gestionBean.obtenerNombreUnidad(asig.idUnidad)}"/>
+            </p:column>
+
+            <p:column headerText="Horas Clase">
+              <h:outputText value="#{gestionBean.obtenerHorasClase(asig.idUnidad)}"/>
+            </p:column>
+
+            <p:column headerText="Horas Taller">
+              <h:outputText value="#{gestionBean.obtenerHorasTaller(asig.idUnidad)}"/>
+            </p:column>
+
+            <p:column headerText="Horas Laboratorio">
+              <h:outputText value="#{gestionBean.obtenerHorasLaboratorio(asig.idUnidad)}"/>
             </p:column>
 
           </p:dataTable>

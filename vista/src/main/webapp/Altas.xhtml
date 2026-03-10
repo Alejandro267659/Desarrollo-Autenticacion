@@ -41,7 +41,7 @@
 
             <label>RFC <span class="asterisco">*</span></label>
             <p:inputText id="rfc" value="#{gestionBean.rfc}" required="true">
-                <f:validateRegex pattern="[A-Z]{4,5}[0-9]{6}" />
+                <f:validateRegex pattern="^[A-ZÑ&amp;]{4}[0-9]{6}[A-Z0-9]{3}$" />
             </p:inputText>
             <p style="font-size: 12px; color: gray;">Formato: ABCDE123456</p>
 
@@ -51,7 +51,7 @@
                              styleClass="btn-green" />
 
 
-            <p:commandButton value="Ir al Menú" action="Menu?faces-redirect=true"
+            <p:commandButton value="Ir al Menú" action="MenuPrincipal.xhtlm"
                              immediate="true" style="width:100%; background: #95a5a6; border:none; color:white;"/>
         </h:form>
     </div>
